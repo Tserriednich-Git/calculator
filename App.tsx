@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Pressable, StyleSheet, Text, View, Vibration } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View, Vibration } from 'react-native';
 import type { TextStyle, ViewStyle } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -115,7 +115,7 @@ const Calculator: React.FC = () => {
     if (key.action === 'equals') {
       const result = evaluate(expression, mode);
       if (!result.ok) return;
-      Vibration.vibrate(12);
+      if (Platform.OS !== 'web') Vibration.vibrate(12);
       setAnswer(formatNumber(result.value));
       setShowingAnswer(true);
       return;
